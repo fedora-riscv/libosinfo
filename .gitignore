@@ -1,0 +1,4 @@
+.build*.log
+*.src.rpm
+*.tar.gz
+x86_64
