@@ -2,8 +2,8 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.0.4
-Release: 2%{?dist}%{?extra_release}
+Version: 0.0.5
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
@@ -107,6 +107,9 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Tue Jan  17 2012 Zeeshan Ali <zeenix@redhat.com> - 0.0.5-1
+- Update to 0.0.5 release
+
 * Tue Jan  3 2012 Daniel P. Berrange <berrange@redhat.com> - 0.0.4-2
 - Remove pointless gir conditionals
 
