@@ -2,7 +2,7 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.0.5
+Version: 0.1.0
 Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
@@ -107,6 +107,9 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Wed Feb 08 2012 Christophe Fergeau <cfergeau@redhat.com> - 0.1.0-1
+- Update to 0.1.0 release
+
 * Tue Jan  17 2012 Zeeshan Ali <zeenix@redhat.com> - 0.0.5-1
 - Update to 0.0.5 release
 
