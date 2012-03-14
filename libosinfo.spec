@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 0.1.0
-Release: 1%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
@@ -62,6 +62,9 @@ rm -fr %{buildroot}
 %__make install DESTDIR=%{buildroot}
 rm -f %{buildroot}%{_libdir}/*.a
 rm -f %{buildroot}%{_libdir}/*.la
+# We read the ID files natively now
+rm -f %{buildroot}%{_bindir}/osinfo-pciids-convert
+rm -f %{buildroot}%{_bindir}/osinfo-usbids-convert
 
 %check
 make check
@@ -76,8 +79,6 @@ rm -fr %{buildroot}
 %files
 %defattr(-, root, root)
 %doc AUTHORS ChangeLog COPYING.LIB NEWS README
-%{_bindir}/osinfo-pciids-convert
-%{_bindir}/osinfo-usbids-convert
 %{_bindir}/osinfo-detect
 %dir %{_datadir}/libosinfo/
 %dir %{_datadir}/libosinfo/data/
@@ -107,6 +108,9 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Wed Mar 14 2012 Daniel P. Berrange <berrange@redhat.com> - 0.1.0-2
+- Remove obsolete perl based scripts (rhbz #803086)
+
 * Wed Feb 08 2012 Christophe Fergeau <cfergeau@redhat.com> - 0.1.0-1
 - Update to 0.1.0 release
 
