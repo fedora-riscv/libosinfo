@@ -15,6 +15,8 @@ BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: vala
 BuildRequires: vala-tools
 BuildRequires: gobject-introspection-devel
+BuildRequires: libsoup-devel
+BuildRequires: libsoup-gnome-devel
 Requires: udev
 
 %description
