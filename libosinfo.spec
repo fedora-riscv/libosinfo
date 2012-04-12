@@ -16,7 +16,6 @@ BuildRequires: vala
 BuildRequires: vala-tools
 BuildRequires: gobject-introspection-devel
 BuildRequires: libsoup-devel
-BuildRequires: libsoup-gnome-devel
 Requires: udev
 
 %description
