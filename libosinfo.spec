@@ -98,6 +98,7 @@ rm -fr %{buildroot}
 %doc AUTHORS ChangeLog COPYING.LIB NEWS README
 %{_bindir}/osinfo-detect
 %{_bindir}/osinfo-db-validate
+%{_bindir}/osinfo-install-script
 %{_bindir}/osinfo-query
 %dir %{_datadir}/libosinfo/
 %dir %{_datadir}/libosinfo/db/
@@ -105,11 +106,13 @@ rm -fr %{buildroot}
 %{_datadir}/libosinfo/db/usb.ids
 %{_datadir}/libosinfo/db/pci.ids
 %{_datadir}/libosinfo/db/devices
+%{_datadir}/libosinfo/db/install-scripts
 %{_datadir}/libosinfo/db/oses
 %{_datadir}/libosinfo/db/hypervisors
 %{_datadir}/libosinfo/schemas/libosinfo.rng
 %{_mandir}/man1/osinfo-db-validate.1*
 %{_mandir}/man1/osinfo-detect.1*
+%{_mandir}/man1/osinfo-install-script.1*
 %{_mandir}/man1/osinfo-query.1*
 %{_libdir}/%{name}-1.0.so.*
 /lib/udev/rules.d/95-osinfo.rules
