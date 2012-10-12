@@ -12,7 +12,7 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.2.0
+Version: 0.2.1
 Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
@@ -22,7 +22,7 @@ URL: https://fedorahosted.org/libosinfo/
 BuildRequires: glib2-devel
 BuildRequires: check-devel
 BuildRequires: libxml2-devel >= 2.6.0
-BuildRequires: libxslt-devel
+BuildRequires: libxslt-devel >= 1.0.0
 BuildRequires: vala
 BuildRequires: vala-tools
 BuildRequires: libsoup-devel
@@ -98,22 +98,22 @@ rm -fr %{buildroot}
 %doc AUTHORS ChangeLog COPYING.LIB NEWS README
 %{_bindir}/osinfo-detect
 %{_bindir}/osinfo-db-validate
-%{_bindir}/osinfo-install-script
 %{_bindir}/osinfo-query
+%{_bindir}/osinfo-install-script
 %dir %{_datadir}/libosinfo/
 %dir %{_datadir}/libosinfo/db/
 %dir %{_datadir}/libosinfo/schemas/
 %{_datadir}/libosinfo/db/usb.ids
 %{_datadir}/libosinfo/db/pci.ids
 %{_datadir}/libosinfo/db/devices
-%{_datadir}/libosinfo/db/install-scripts
 %{_datadir}/libosinfo/db/oses
 %{_datadir}/libosinfo/db/hypervisors
+%{_datadir}/libosinfo/db/install-scripts
 %{_datadir}/libosinfo/schemas/libosinfo.rng
 %{_mandir}/man1/osinfo-db-validate.1*
 %{_mandir}/man1/osinfo-detect.1*
-%{_mandir}/man1/osinfo-install-script.1*
 %{_mandir}/man1/osinfo-query.1*
+%{_mandir}/man1/osinfo-install-script.1*
 %{_libdir}/%{name}-1.0.so.*
 /lib/udev/rules.d/95-osinfo.rules
 %if %{with_gir}
@@ -139,6 +139,25 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Fri Oct 12 2012 Zeeshan Ali <zeenix@redhat.com> - 0.2.1-1
+- Fix and simplify udev rule.
+- Fedora:
+  - Fix minimum RAM requirements for F16 and F17.
+- Add data on:
+  - Fedora 18
+  - GNOME 3.6
+  - Ubuntu 12.10
+- Fixes to doc build.
+- Install script:
+  - Add get_config_param method.
+  - Differenciate between expected/output script names.
+  - Add more utility functions.
+- Add 'installer-reboots' parameter to medias.
+- osinfo-detect does not die of DB loading errors anymore.
+- More type-specific entity value getters/setters.
+- Fixe and update RNG file.
+- Add 'subsystem' property/attribute to devices.
+
 * Mon Sep 03 2012 Christophe Fergeau <cfergeau@redhat.com> - 0.2.0-1
 - Update to 0.2.0 release.
 
