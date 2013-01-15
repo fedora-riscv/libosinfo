@@ -95,7 +95,7 @@ rm -fr %{buildroot}
 
 %postun -p /sbin/ldconfig
 
-%files -f ${name}.lang
+%files -f %{name}.lang
 %defattr(-, root, root)
 %doc AUTHORS ChangeLog COPYING.LIB NEWS README
 %{_bindir}/osinfo-detect
