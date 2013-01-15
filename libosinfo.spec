@@ -82,6 +82,7 @@ rm -fr %{buildroot}
 %__make install DESTDIR=%{buildroot}
 rm -f %{buildroot}%{_libdir}/*.a
 rm -f %{buildroot}%{_libdir}/*.la
+%find_lang %{name}
 
 %check
 make check
@@ -93,7 +94,7 @@ rm -fr %{buildroot}
 
 %postun -p /sbin/ldconfig
 
-%files
+%files -f ${name}.lang
 %defattr(-, root, root)
 %doc AUTHORS ChangeLog COPYING.LIB NEWS README
 %{_bindir}/osinfo-detect
@@ -106,6 +107,7 @@ rm -fr %{buildroot}
 %{_datadir}/libosinfo/db/usb.ids
 %{_datadir}/libosinfo/db/pci.ids
 %{_datadir}/libosinfo/db/devices
+%{_datadir}/libosinfo/db/datamaps
 %{_datadir}/libosinfo/db/oses
 %{_datadir}/libosinfo/db/hypervisors
 %{_datadir}/libosinfo/db/install-scripts
