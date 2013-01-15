@@ -19,6 +19,7 @@ Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 URL: https://fedorahosted.org/libosinfo/
+BuildRequires: intltool
 BuildRequires: glib2-devel
 BuildRequires: check-devel
 BuildRequires: libxml2-devel >= 2.6.0
