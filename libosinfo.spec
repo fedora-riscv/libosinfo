@@ -13,10 +13,12 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 0.2.3
-Release: 1%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
+# Fix osinfo-detect crash with non-bootable media (bz 901910)
+Patch1: 0001-osinfo-detect-Fix-segfault-with-non-bootable-media.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 URL: https://fedorahosted.org/libosinfo/
 BuildRequires: intltool
@@ -65,6 +67,7 @@ This package provides the Vala bindings for libosinfo library.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 %if %{with_gir}
@@ -142,6 +145,9 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Tue Feb 12 2013 Cole Robinson <crobinso@redhat.com> - 0.2.3-2
+- Fix osinfo-detect crash with non-bootable media (bz #901910)
+
 * Mon Jan 14 2013 Zeeshan Ali <zeenix@redhat.com> - 0.2.3-1
 - New upstream release 0.2.3
 

@@ -1,0 +1,42 @@
+From e17fc3a461a70c7a2a881d48eb2d79d4b852c050 Mon Sep 17 00:00:00 2001
+Message-Id: <e17fc3a461a70c7a2a881d48eb2d79d4b852c050.1360687229.git.crobinso@redhat.com>
+From: Cole Robinson <crobinso@redhat.com>
+Date: Fri, 8 Feb 2013 13:37:53 -0500
+Subject: [PATCH] osinfo-detect: Fix segfault with non bootable media
+
+With a movie DVD in my drive:
+
+$ osinfo-detect -f env /dev/cdrom
+OSINFO_BOOTABLE=0
+
+** (osinfo-detect:24211): CRITICAL **: osinfo_db_identify_media: assertion `OSINFO_IS_MEDIA(media)' failed
+
+(osinfo-detect:24211): GLib-GObject-CRITICAL **: g_object_get: assertion `G_IS_OBJECT (object)' failed
+Segmentation fault (core dumped)
+
+We weren't exiting after detecting the media as non bootable.
+
+https://bugzilla.redhat.com/show_bug.cgi?id=901910
+---
+ tools/osinfo-detect.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/osinfo-detect.c b/tools/osinfo-detect.c
+index 1262783..0f837de 100644
+--- a/tools/osinfo-detect.c
++++ b/tools/osinfo-detect.c
+@@ -238,10 +238,10 @@ gint main(gint argc, gchar **argv)
+                 g_printerr(_("Error parsing media: %s\n"), error->message);
+ 
+                 ret = -3;
+-                goto EXIT;
+             } else {
+                 print_bootable(FALSE);
+             }
++            goto EXIT;
+         } else {
+             print_bootable(TRUE);
+         }
+-- 
+1.8.1
+
