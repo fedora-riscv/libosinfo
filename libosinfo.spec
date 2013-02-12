@@ -29,6 +29,7 @@ BuildRequires: libxslt-devel >= 1.0.0
 BuildRequires: vala
 BuildRequires: vala-tools
 BuildRequires: libsoup-devel
+BuildRequires: perl-podlators
 %if %{with_gir}
 BuildRequires: gobject-introspection-devel
 %endif
