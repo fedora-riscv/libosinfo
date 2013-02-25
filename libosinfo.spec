@@ -10,17 +10,20 @@
 %define with_gir 1
 %endif
 
+%define with_udev 1
+%if 0%{?fedora} >= 19
+%define with_udev 0
+%endif
+
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.2.3
-Release: 2%{?dist}%{?extra_release}
+Version: 0.2.4
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
-# Fix osinfo-detect crash with non-bootable media (bz 901910)
-Patch1: 0001-osinfo-detect-Fix-segfault-with-non-bootable-media.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-URL: https://fedorahosted.org/libosinfo/
+URL: http://libosinfo.org/
 BuildRequires: intltool
 BuildRequires: glib2-devel
 BuildRequires: check-devel
@@ -29,7 +32,9 @@ BuildRequires: libxslt-devel >= 1.0.0
 BuildRequires: vala
 BuildRequires: vala-tools
 BuildRequires: libsoup-devel
+%if 0%{?fedora} >= 19
 BuildRequires: perl-podlators
+%endif
 %if %{with_gir}
 BuildRequires: gobject-introspection-devel
 %endif
@@ -68,7 +73,6 @@ This package provides the Vala bindings for libosinfo library.
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 %if %{with_gir}
@@ -77,7 +81,13 @@ This package provides the Vala bindings for libosinfo library.
 %define gir_arg --enable-introspection=no
 %endif
 
-%configure %{gir_arg} --enable-vala=yes --enable-udev=yes
+%if %{with_udev}
+%define udev_arg --enable-udev=yes
+%else
+%define udev_arg --enable-udev=no
+%endif
+
+%configure %{gir_arg} %{udev_arg} --enable-vala=yes
 %__make %{?_smp_mflags} V=1
 
 chmod a-x examples/*.js examples/*.py
@@ -87,6 +97,7 @@ rm -fr %{buildroot}
 %__make install DESTDIR=%{buildroot}
 rm -f %{buildroot}%{_libdir}/*.a
 rm -f %{buildroot}%{_libdir}/*.la
+
 %find_lang %{name}
 
 %check
@@ -111,8 +122,8 @@ rm -fr %{buildroot}
 %dir %{_datadir}/libosinfo/schemas/
 %{_datadir}/libosinfo/db/usb.ids
 %{_datadir}/libosinfo/db/pci.ids
-%{_datadir}/libosinfo/db/devices
 %{_datadir}/libosinfo/db/datamaps
+%{_datadir}/libosinfo/db/devices
 %{_datadir}/libosinfo/db/oses
 %{_datadir}/libosinfo/db/hypervisors
 %{_datadir}/libosinfo/db/install-scripts
@@ -122,7 +133,9 @@ rm -fr %{buildroot}
 %{_mandir}/man1/osinfo-query.1*
 %{_mandir}/man1/osinfo-install-script.1*
 %{_libdir}/%{name}-1.0.so.*
+%if %{with_udev}
 /lib/udev/rules.d/95-osinfo.rules
+%endif
 %if %{with_gir}
 %{_libdir}/girepository-1.0/Libosinfo-1.0.typelib
 %endif
