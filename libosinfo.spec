@@ -17,7 +17,7 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.2.4
+Version: 0.2.5
 Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
@@ -159,6 +159,11 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Tue Mar 05 2013 Christophe Fergeau <cfergeau@redhat.com> 0.2.5-1
+- New upstream release 0.2.5
+- Disable udev rule as it's no longer required with newer
+  systemd/util-linux
+
 * Tue Feb 12 2013 Cole Robinson <crobinso@redhat.com> - 0.2.3-2
 - Fix osinfo-detect crash with non-bootable media (bz #901910)
 
