@@ -17,8 +17,8 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.2.5
-Release: 2%{?dist}%{?extra_release}
+Version: 0.2.6
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
@@ -36,6 +36,7 @@ BuildRequires: /usr/bin/pod2man
 %if %{with_gir}
 BuildRequires: gobject-introspection-devel
 %endif
+Requires: hwdata
 %if %{with_udev}
 Requires: udev
 %endif
@@ -87,7 +88,7 @@ This package provides the Vala bindings for libosinfo library.
 %define udev_arg --enable-udev=no
 %endif
 
-%configure %{gir_arg} %{udev_arg} --enable-vala=yes
+%configure %{gir_arg} %{udev_arg} --enable-vala=yes --with-usb-ids-path=/usr/share/hwdata/usb.ids --with-pci-ids-path=/usr/share/hwdata/pci.ids
 %__make %{?_smp_mflags} V=1
 
 chmod a-x examples/*.js examples/*.py
@@ -159,6 +160,10 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Thu Mar 21 2013 Zeeshan Ali <zeenix@redhat.com> - 0.2.6-1
+- New upstream release 0.2.6
+- Make use of usb.ids and pci.ids files provided by hwdata package.
+
 * Wed Mar 06 2013 Christophe Fergeau <cfergeau@redhat.com> - 0.2.5-2
 - BuildRequires /usr/bin/pod2man as this will automatically pick the right
   package rather than conditionally requiring a package that is only
