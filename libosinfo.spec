@@ -36,7 +36,6 @@ BuildRequires: /usr/bin/pod2man
 %if %{with_gir}
 BuildRequires: gobject-introspection-devel
 %endif
-Requires: hwdata
 %if %{with_udev}
 Requires: udev
 %endif
@@ -88,7 +87,7 @@ This package provides the Vala bindings for libosinfo library.
 %define udev_arg --enable-udev=no
 %endif
 
-%configure %{gir_arg} %{udev_arg} --enable-vala=yes --with-usb-ids-path=/usr/share/hwdata/usb.ids --with-pci-ids-path=/usr/share/hwdata/pci.ids
+%configure %{gir_arg} %{udev_arg} --enable-vala=yes
 %__make %{?_smp_mflags} V=1
 
 chmod a-x examples/*.js examples/*.py
@@ -162,7 +161,6 @@ rm -fr %{buildroot}
 %changelog
 * Thu Mar 21 2013 Zeeshan Ali <zeenix@redhat.com> - 0.2.6-1
 - New upstream release 0.2.6
-- Make use of usb.ids and pci.ids files provided by hwdata package.
 
 * Wed Mar 06 2013 Christophe Fergeau <cfergeau@redhat.com> - 0.2.5-2
 - BuildRequires /usr/bin/pod2man as this will automatically pick the right
