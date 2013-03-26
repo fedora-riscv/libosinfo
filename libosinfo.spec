@@ -17,7 +17,7 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.2.5
+Version: 0.2.6
 Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
@@ -32,13 +32,13 @@ BuildRequires: libxslt-devel >= 1.0.0
 BuildRequires: vala
 BuildRequires: vala-tools
 BuildRequires: libsoup-devel
-%if 0%{?fedora} >= 19
-BuildRequires: perl-podlators
-%endif
+BuildRequires: /usr/bin/pod2man
 %if %{with_gir}
 BuildRequires: gobject-introspection-devel
 %endif
+%if %{with_udev}
 Requires: udev
+%endif
 
 %description
 libosinfo is a library that allows virtualization provisioning tools to
@@ -159,6 +159,16 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Thu Mar 21 2013 Zeeshan Ali <zeenix@redhat.com> - 0.2.6-1
+- New upstream release 0.2.6
+
+* Wed Mar 06 2013 Christophe Fergeau <cfergeau@redhat.com> - 0.2.5-2
+- BuildRequires /usr/bin/pod2man as this will automatically pick the right
+  package rather than conditionally requiring a package that is only
+  available in f19+
+- Do not Requires: udev when building libosinfo without its udev rule
+  (which is done on f19+)
+
 * Tue Mar 05 2013 Christophe Fergeau <cfergeau@redhat.com> 0.2.5-1
 - New upstream release 0.2.5
 - Disable udev rule as it's no longer required with newer
