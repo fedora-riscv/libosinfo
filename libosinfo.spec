@@ -11,7 +11,7 @@
 %endif
 
 %define with_udev 1
-%if 0%{?fedora} >= 19
+%if 0%{?fedora} >= 19 || 0%{?rhel} >= 7
 %define with_udev 0
 %endif
 
