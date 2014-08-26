@@ -17,8 +17,8 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.2.9
-Release: 4%{?dist}%{?extra_release}
+Version: 0.2.11
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
@@ -160,6 +160,9 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Tue Aug 26 2014 Christophe Fergeau <cfergeau@redhat.com> 0.2.11-1
+- New upstream release 0.2.11
+
 * Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
