@@ -18,10 +18,13 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 0.2.11
-Release: 1%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
+
+# os: Add Fedora 21
+Patch0001: 0001-oses-Add-Fedora21.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 URL: http://libosinfo.org/
 BuildRequires: intltool
@@ -74,6 +77,9 @@ This package provides the Vala bindings for libosinfo library.
 
 %prep
 %setup -q
+
+# os: Add Fedora 21
+%patch0001 -p1
 
 %build
 %if %{with_gir}
@@ -160,6 +166,9 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Mon Sep 22 2014 Cole Robinson <crobinso@redhat.com> - 0.2.11-2
+- os: Add Fedora 21
+
 * Tue Aug 26 2014 Christophe Fergeau <cfergeau@redhat.com> 0.2.11-1
 - New upstream release 0.2.11
 
