@@ -23,8 +23,6 @@ License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
 
-# os: Add Fedora 21
-Patch0001: 0001-oses-Add-Fedora21.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 URL: http://libosinfo.org/
 BuildRequires: intltool
@@ -77,9 +75,6 @@ This package provides the Vala bindings for libosinfo library.
 
 %prep
 %setup -q
-
-# os: Add Fedora 21
-%patch0001 -p1
 
 %build
 %if %{with_gir}
