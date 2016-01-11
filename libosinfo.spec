@@ -75,7 +75,7 @@ This package provides the Vala bindings for libosinfo library.
 %define gir_arg --enable-introspection=no
 %endif
 
-%configure %{gir_arg} %{udev_arg} --enable-vala=yes
+%configure %{gir_arg} %{udev_arg} --enable-vala=yes --with-usb-ids-path=/usr/share/hwdata/usb.ids --with-pci-ids-path=/usr/share/hwdata/pci.ids
 %__make %{?_smp_mflags} V=1
 
 chmod a-x examples/*.js examples/*.py
