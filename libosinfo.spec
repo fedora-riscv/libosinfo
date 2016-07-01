@@ -12,12 +12,11 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 0.3.0
-Release: 2%{?dist}%{?extra_release}
+Version: 0.3.1
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://fedorahosted.org/releases/l/i/%{name}/%{name}-%{version}.tar.gz
-
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 URL: http://libosinfo.org/
 BuildRequires: intltool
@@ -29,6 +28,7 @@ BuildRequires: vala
 BuildRequires: vala-tools
 BuildRequires: libsoup-devel
 BuildRequires: /usr/bin/pod2man
+BuildRequires: hwdata
 %if %{with_gir}
 BuildRequires: gobject-introspection-devel
 %endif
@@ -75,7 +75,7 @@ This package provides the Vala bindings for libosinfo library.
 %define gir_arg --enable-introspection=no
 %endif
 
-%configure %{gir_arg} %{udev_arg} --enable-vala=yes --with-usb-ids-path=/usr/share/hwdata/usb.ids --with-pci-ids-path=/usr/share/hwdata/pci.ids
+%configure %{gir_arg} --enable-vala=yes
 %__make %{?_smp_mflags} V=1
 
 chmod a-x examples/*.js examples/*.py
@@ -142,6 +142,9 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Fri Jul  1 2016 Daniel P. Berrange <berrange@redhat.com> 0.3.1-1
+- New upstream release 0.3.1
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
