@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.1.0
-Release: 1%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
@@ -80,12 +80,7 @@ then
   exit 1
 fi
 
-%clean
-rm -fr %{buildroot}
-
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %defattr(-, root, root)
@@ -116,6 +111,9 @@ rm -fr %{buildroot}
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Tue Feb 06 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.1.0-2
+- Switch to %%ldconfig_scriptlets
+
 * Tue Aug 15 2017 Daniel P. Berrange <berrange@redhat.com> 1.1.0-1
 - New upstream release 1.1.0
 
