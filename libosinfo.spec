@@ -2,20 +2,19 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 1.1.0
-Release: 2%{?dist}%{?extra_release}
+Version: 1.2.0
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
 BuildRequires: intltool
 BuildRequires: glib2-devel
-BuildRequires: check-devel
 BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.0.0
 BuildRequires: vala
 BuildRequires: vala-tools
-BuildRequires: libsoup-devel
+BuildRequires: libcurl-devel
 BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
 BuildRequires: gobject-introspection-devel
@@ -110,6 +109,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Wed Jun 20 2018 Daniel P. Berrangé <berrange@redhat.com> - 1.2.0-1
+- Update to 1.2.0 release
+
 * Tue Feb 06 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.1.0-2
 - Switch to %%ldconfig_scriptlets
 
