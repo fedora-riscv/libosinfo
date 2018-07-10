@@ -81,7 +81,6 @@ fi
 %ldconfig_scriptlets
 
 %files -f %{name}.lang
-%defattr(-, root, root)
 %doc AUTHORS ChangeLog COPYING.LIB NEWS README
 %{_bindir}/osinfo-detect
 %{_bindir}/osinfo-query
@@ -93,7 +92,6 @@ fi
 %{_libdir}/girepository-1.0/Libosinfo-1.0.typelib
 
 %files devel
-%defattr(-, root, root)
 %doc examples/demo.js
 %doc examples/demo.py
 %{_libdir}/%{name}-1.0.so
@@ -105,7 +103,6 @@ fi
 %{_datadir}/gtk-doc/html/Libosinfo
 
 %files vala
-%defattr(-, root, root)
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
