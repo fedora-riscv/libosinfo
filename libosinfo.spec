@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.2.0
-Release: 3%{?dist}%{?extra_release}
+Release: 4%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
@@ -24,7 +24,7 @@ BuildRequires: hwdata
 BuildRequires: gobject-introspection-devel
 BuildRequires: osinfo-db
 Requires: hwdata
-Requires: osinfo-db
+Requires: osinfo-db >= 20180920-1
 Requires: osinfo-db-tools
 
 %description
@@ -114,6 +114,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Thu Sep 20 2018 Fabiano Fidêncio <fabiano@fidencio.org> - 1.2.0-4
+- Require osinfo-db >= 20180920-1
+
 * Thu Sep 20 2018 Fabiano Fidêncio <fabiano@fidencio.org> - 1.2.0-3
 - Force anchored patterns when matching regex
 
