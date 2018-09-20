@@ -3,11 +3,15 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.2.0
-Release: 2%{?dist}%{?extra_release}
+Release: 3%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
+
+### Patches ###
+Patch0001: 0001-db-Force-anchored-patterns-when-matching-regex.patch
+
 BuildRequires: intltool
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
@@ -56,6 +60,10 @@ This package provides the Vala bindings for libosinfo library.
 
 %prep
 %setup -q
+
+for p in %patches ; do
+    %__patch -p1 -i $p
+done
 
 %build
 %configure --enable-introspection=yes --enable-vala=yes
@@ -106,6 +114,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Thu Sep 20 2018 Fabiano Fidêncio <fabiano@fidencio.org> - 1.2.0-3
+- Force anchored patterns when matching regex
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
