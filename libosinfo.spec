@@ -3,15 +3,11 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.2.0
-Release: 4%{?dist}%{?extra_release}
+Release: 5%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
-
-### Patches ###
-Patch0001: 0001-db-Force-anchored-patterns-when-matching-regex.patch
-
 BuildRequires: intltool
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
@@ -22,9 +18,9 @@ BuildRequires: libcurl-devel
 BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
 BuildRequires: gobject-introspection-devel
-BuildRequires: osinfo-db
+BuildRequires: osinfo-db >= 20181011-1
 Requires: hwdata
-Requires: osinfo-db >= 20180920-1
+Requires: osinfo-db >= 20181011-1
 Requires: osinfo-db-tools
 
 %description
@@ -60,10 +56,6 @@ This package provides the Vala bindings for libosinfo library.
 
 %prep
 %setup -q
-
-for p in %patches ; do
-    %__patch -p1 -i $p
-done
 
 %build
 %configure --enable-introspection=yes --enable-vala=yes
@@ -114,6 +106,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Thu Oct 11 2018 Fabiano Fidêncio <fabiano@fidencio.org> - 1.2.0-5
+- Do not force anchored patterns on libosinfo, leave it for osinfo-db
+
 * Thu Sep 20 2018 Fabiano Fidêncio <fabiano@fidencio.org> - 1.2.0-4
 - Require osinfo-db >= 20180920-1
 
