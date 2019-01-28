@@ -5,7 +5,6 @@ Name: libosinfo
 Version: 1.2.0
 Release: 5%{?dist}%{?extra_release}
 License: LGPLv2+
-Group: Development/Libraries
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
 BuildRequires: intltool
@@ -30,7 +29,6 @@ combination.
 
 %package devel
 Summary: Libraries, includes, etc. to compile with the libosinfo library
-Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: pkgconfig
 Requires: glib2-devel
@@ -44,7 +42,6 @@ Libraries, includes, etc. to compile with the libosinfo library
 
 %package vala
 Summary: Vala bindings
-Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
 %description vala
