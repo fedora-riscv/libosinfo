@@ -2,8 +2,8 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 1.2.0
-Release: 5%{?dist}%{?extra_release}
+Version: 1.3.0
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
@@ -103,6 +103,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Wed Jan 30 2019 Daniel P. Berrangé <berrange@redhat.com> - 1.3.0-1
+- Update to 1.3.0 release
+
 * Thu Oct 11 2018 Fabiano Fidêncio <fabiano@fidencio.org> - 1.2.0-5
 - Do not force anchored patterns on libosinfo, leave it for osinfo-db
 
