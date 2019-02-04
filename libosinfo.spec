@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.3.0
-Release: 2%{?dist}%{?extra_release}
+Release: 3%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
@@ -12,7 +12,6 @@ BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.0.0
 BuildRequires: vala
-BuildRequires: vala-tools
 BuildRequires: libcurl-devel
 BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
@@ -32,6 +31,9 @@ Summary: Libraries, includes, etc. to compile with the libosinfo library
 Requires: %{name} = %{version}-%{release}
 Requires: pkgconfig
 Requires: glib2-devel
+# -vala subpackage removed in F30
+Obsoletes: libosinfo-vala < 1.3.0-3
+Provides: libosinfo-vala = %{version}-%{release}
 
 %description devel
 libosinfo is a library that allows virtualization provisioning tools to
@@ -39,17 +41,6 @@ determine the optimal device settings for a hypervisor/operating system
 combination.
 
 Libraries, includes, etc. to compile with the libosinfo library
-
-%package vala
-Summary: Vala bindings
-Requires: %{name} = %{version}-%{release}
-
-%description vala
-libosinfo is a library that allows virtualization provisioning tools to
-determine the optimal device settings for a hypervisor/operating system
-combination.
-
-This package provides the Vala bindings for libosinfo library.
 
 %prep
 %setup -q
@@ -98,11 +89,14 @@ fi
 %{_libdir}/pkgconfig/%{name}-1.0.pc
 %{_datadir}/gir-1.0/Libosinfo-1.0.gir
 %{_datadir}/gtk-doc/html/Libosinfo
-
-%files vala
+%dir %{_datadir}/vala
+%dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Mon Feb 04 2019 Kalev Lember <klember@redhat.com> - 1.3.0-3
+- Use standard vala packaging pattern where vapi files are in -devel
+
 * Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
