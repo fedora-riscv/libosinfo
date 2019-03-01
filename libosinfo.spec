@@ -2,12 +2,12 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 1.3.0
-Release: 3%{?dist}%{?extra_release}
+Version: 1.4.0
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
-BuildRequires: intltool
+BuildRequires: gettext-devel
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.0.0
@@ -94,6 +94,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Fri Mar 01 2019 Fabiano Fidêncio <fidencio@redhat.com> 1.4.0-1
+- Update to 1.4.0 release
+
 * Mon Feb 04 2019 Kalev Lember <klember@redhat.com> - 1.3.0-3
 - Use standard vala packaging pattern where vapi files are in -devel
 
