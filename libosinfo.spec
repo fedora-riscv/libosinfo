@@ -10,6 +10,7 @@ URL: https://libosinfo.org/
 
 ###Patches###
 Patch0001: 0001-media-Fix-usage-of-application-id.patch
+Patch0002: 0002-loader-Properly-load-the-arch-value-for-images.patch
 
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
@@ -104,6 +105,7 @@ fi
 %changelog
 * Wed Apr 10 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.4.0-2
 - Fix usage of application ID
+- Fix images' load
 
 * Fri Mar 01 2019 Fabiano Fidêncio <fidencio@redhat.com> 1.4.0-1
 - Update to 1.4.0 release
