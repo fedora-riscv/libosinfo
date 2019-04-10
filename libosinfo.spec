@@ -3,10 +3,14 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.4.0
-Release: 1%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
+
+###Patches###
+Patch0001: 0001-media-Fix-usage-of-application-id.patch
+
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
@@ -17,6 +21,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
 BuildRequires: gobject-introspection-devel
 BuildRequires: osinfo-db >= 20181011-1
+BuildRequires: git
 Requires: hwdata
 Requires: osinfo-db >= 20181011-1
 Requires: osinfo-db-tools
@@ -43,7 +48,7 @@ combination.
 Libraries, includes, etc. to compile with the libosinfo library
 
 %prep
-%setup -q
+%autosetup -S git
 
 %build
 %configure --enable-introspection=yes --enable-vala=yes
@@ -94,6 +99,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Wed Apr 10 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.4.0-2
+- Fix usage of application ID
+
 * Fri Mar 01 2019 Fabiano Fidêncio <fidencio@redhat.com> 1.4.0-1
 - Update to 1.4.0 release
 
