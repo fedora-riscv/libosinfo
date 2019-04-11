@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.4.0
-Release: 2%{?dist}%{?extra_release}
+Release: 3%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
@@ -31,6 +31,7 @@ BuildRequires: git
 Requires: hwdata
 Requires: osinfo-db >= 20181011-1
 Requires: osinfo-db-tools
+Requires: gvfs
 
 %description
 libosinfo is a library that allows virtualization provisioning tools to
@@ -105,6 +106,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Thu Apr 11 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.4.0-3
+- rhbz#1698845: Require GVFS
+
 * Wed Apr 10 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.4.0-2
 - Fix usage of application ID
 - Fix images' load
