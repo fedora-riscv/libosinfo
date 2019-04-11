@@ -1,0 +1,50 @@
+From edb2443eadb6992c93f5cee278fa3b39a85bd85c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fabiano=20Fid=C3=AAncio?= <fabiano@fidencio.org>
+Date: Sun, 2 Dec 2018 16:37:59 +0100
+Subject: [PATCH 3/5] db: improve _guess_os_from_tree() checks
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Do not check against a distro which doesn't have treeinfo data as
+match_regex() would just match whatever we compare to it.
+
+Signed-off-by: Fabiano Fidêncio <fabiano@fidencio.org>
+Reviewed-by: Christophe Fergeau <cfergeau@redhat.com>
+---
+ osinfo/osinfo_db.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/osinfo/osinfo_db.c b/osinfo/osinfo_db.c
+index fa14c6d..497cad1 100644
+--- a/osinfo/osinfo_db.c
++++ b/osinfo/osinfo_db.c
+@@ -758,10 +758,21 @@ OsinfoOs *osinfo_db_guess_os_from_tree(OsinfoDb *db,
+ 
+         for (tree_iter = trees; tree_iter; tree_iter = tree_iter->next) {
+             OsinfoTree *os_tree = OSINFO_TREE(tree_iter->data);
+-            const gchar *os_family = osinfo_tree_get_treeinfo_family(os_tree);
+-            const gchar *os_variant = osinfo_tree_get_treeinfo_variant(os_tree);
+-            const gchar *os_version = osinfo_tree_get_treeinfo_version(os_tree);
+-            const gchar *os_arch = osinfo_tree_get_treeinfo_arch(os_tree);
++            const gchar *os_family;
++            const gchar *os_variant;
++            const gchar *os_version;
++            const gchar *os_arch;
++
++            os_family = osinfo_tree_get_treeinfo_family(os_tree);
++            os_variant = osinfo_tree_get_treeinfo_variant(os_tree);
++            os_version = osinfo_tree_get_treeinfo_version(os_tree);
++            os_arch = osinfo_tree_get_treeinfo_arch(os_tree);
++
++            if (os_family == NULL &&
++                os_variant == NULL &&
++                os_version == NULL &&
++                os_arch == NULL)
++                continue;
+ 
+             if (match_regex(os_family, tree_family) &&
+                 match_regex(os_variant, tree_variant) &&
+-- 
+2.20.1
+

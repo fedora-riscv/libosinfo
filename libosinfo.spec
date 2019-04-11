@@ -3,11 +3,19 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.2.0
-Release: 5%{?dist}%{?extra_release}
+Release: 6%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
+
+###Patches###
+Patch0001: 0001-loader-Replace-strcmp-with-g_str_equal.patch
+Patch0002: 0002-loader-properly-load-the-treeinfo-attributes.patch
+Patch0003: 0003-db-improve-_guess_os_from_tree-checks.patch
+Patch0004: 0004-db-improve-_guess_os_from_media-checks.patch
+Patch0005: 0005-tree-Also-check-fore-treeinfo-in-addition-to-.treein.patch
+
 BuildRequires: intltool
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
@@ -19,6 +27,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
 BuildRequires: gobject-introspection-devel
 BuildRequires: osinfo-db >= 20181011-1
+BuildRequires: git
 Requires: hwdata
 Requires: osinfo-db >= 20181011-1
 Requires: osinfo-db-tools
@@ -55,7 +64,7 @@ combination.
 This package provides the Vala bindings for libosinfo library.
 
 %prep
-%setup -q
+%autosetup -S git
 
 %build
 %configure --enable-introspection=yes --enable-vala=yes
@@ -106,6 +115,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Thu Apr 11 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.2.0-6
+- Backport tree/media detection fixes
+
 * Thu Oct 11 2018 Fabiano Fidêncio <fabiano@fidencio.org> - 1.2.0-5
 - Do not force anchored patterns on libosinfo, leave it for osinfo-db
 
