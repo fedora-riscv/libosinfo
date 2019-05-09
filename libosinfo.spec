@@ -2,20 +2,11 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 1.4.0
-Release: 3%{?dist}%{?extra_release}
+Version: 1.5.0
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
-
-###Patches###
-Patch0001: 0001-media-Fix-usage-of-application-id.patch
-Patch0002: 0002-loader-Properly-load-the-arch-value-for-images.patch
-Patch0003: 0003-tests-Remove-test-.uris.patch
-Patch0004: 0004-tests-Remove-test-isodetect.patch
-Patch0005: 0005-test-os-Remove-test_resources_minimum_recommended_ma.patch
-Patch0006: 0006-test-os-Remove-test_resources_uniqueness.patch
-Patch0007: 0007-test-os-Remove-test_devices_duplication.patch
 
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
@@ -106,6 +97,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Thu May 09 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.5.0-1
+- Update to 1.5.0 release
+
 * Thu Apr 11 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.4.0-3
 - rhbz#1698845: Require GVFS
 
