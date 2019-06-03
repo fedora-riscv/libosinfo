@@ -3,10 +3,15 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.5.0
-Release: 1%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
+
+### Patches ###
+Patch0001: 0001-db-Avoid-dereference-of-null-pointer.patch
+Patch0002: 0002-tree-Avoid-use-of-memory-after-it-s-freed.patch
+Patch0003: 0003-tree-Cleanup-_create_from_location_async_helper.patch
 
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
@@ -97,6 +102,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Mon Jun 03 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.5.0-2
+- Fix coverity issues
+
 * Thu May 09 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.5.0-1
 - Update to 1.5.0 release
 
