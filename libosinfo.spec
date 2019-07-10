@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.2.0
-Release: 7%{?dist}%{?extra_release}
+Release: 8%{?dist}%{?extra_release}
 License: LGPLv2+
 Group: Development/Libraries
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
@@ -15,6 +15,8 @@ Patch0002: 0002-loader-properly-load-the-treeinfo-attributes.patch
 Patch0003: 0003-db-improve-_guess_os_from_tree-checks.patch
 Patch0004: 0004-db-improve-_guess_os_from_media-checks.patch
 Patch0005: 0005-tree-Also-check-fore-treeinfo-in-addition-to-.treein.patch
+Patch0006: 0006-tools-install-script-Add-config-file-f-option.patch
+Patch0007: 0007-tools-install-script-Deprecate-config-user-admin-pas.patch
 
 BuildRequires: intltool
 BuildRequires: glib2-devel
@@ -116,6 +118,10 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Wed Jul 10 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.2.0-8
+- rhbz#1727767 - CVE-2019-13313 libosinfo: osinfo-install-script
+                 option leaks password via command line argument
+
 * Mon Apr 15 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.2.0-7
 - rhbz#1698845: Require GVFS
 
