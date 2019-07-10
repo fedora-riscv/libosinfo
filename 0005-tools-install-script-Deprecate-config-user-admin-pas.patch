@@ -1,0 +1,59 @@
+From 3654abee6ead9f11f8bb9ba8fc71efd6fa4dabbc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fabiano=20Fid=C3=AAncio?= <fidencio@redhat.com>
+Date: Wed, 3 Jul 2019 14:59:07 +0200
+Subject: [PATCH] tools,install-script: Deprecate --config
+ {user,admin}-password
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Let's deprecate user-password and admin-password options of --config and
+also warn out whenever they're passed to osinfo-install-script.
+
+CVE-2019-13313
+Libosinfo: osinfo-install-script option leaks password via command line
+argument. 'osinfo-install-script' is used to generate a script for
+automated guest installations. It accepts user and admin passwords via
+command line arguments, thus leaking them via process listing.
+
+Signed-off-by: Fabiano Fidêncio <fidencio@redhat.com>
+Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+---
+ tools/osinfo-install-script.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/tools/osinfo-install-script.c b/tools/osinfo-install-script.c
+index af58440..c0528e7 100644
+--- a/tools/osinfo-install-script.c
++++ b/tools/osinfo-install-script.c
+@@ -85,6 +85,12 @@ static gboolean handle_config(const gchar *option_name G_GNUC_UNUSED,
+     val++;
+     key = g_strndup(value, len);
+ 
++    if (g_str_equal(key, OSINFO_INSTALL_CONFIG_PROP_USER_PASSWORD) ||
++        g_str_equal(key, OSINFO_INSTALL_CONFIG_PROP_ADMIN_PASSWORD)) {
++        g_warning("When setting user or admin password, use --config-file "
++                  "instead.\n");
++    }
++
+     osinfo_entity_set_param(OSINFO_ENTITY(config),
+                             key,
+                             val);
+@@ -556,10 +562,14 @@ The local language
+ =item C<admin-password>
+ 
+ The administrator password
++This option has been deprecated, use B<--config-file>
++for setting the admin password.
+ 
+ =item C<user-password>
+ 
+ The user password
++This option has been deprecated, use B<--config-file>
++for setting the user password.
+ 
+ =item C<user-login>
+ 
+-- 
+2.21.0
+

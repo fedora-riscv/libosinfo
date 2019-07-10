@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.5.0
-Release: 2%{?dist}%{?extra_release}
+Release: 3%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
@@ -12,6 +12,8 @@ URL: https://libosinfo.org/
 Patch0001: 0001-db-Avoid-dereference-of-null-pointer.patch
 Patch0002: 0002-tree-Avoid-use-of-memory-after-it-s-freed.patch
 Patch0003: 0003-tree-Cleanup-_create_from_location_async_helper.patch
+Patch0004: 0004-tools-install-script-Add-config-file-f-option.patch
+Patch0005: 0005-tools-install-script-Deprecate-config-user-admin-pas.patch
 
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
@@ -102,6 +104,10 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Wed Jul 10 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.5.0-3
+- rhbz#1727767 - CVE-2019-13313 libosinfo: osinfo-install-script
+                 option leaks password via command line argument
+
 * Mon Jun 03 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.5.0-2
 - Fix coverity issues
 
