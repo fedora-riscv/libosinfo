@@ -2,23 +2,19 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 1.5.0
-Release: 4%{?dist}%{?extra_release}
+Version: 1.6.0
+Release: 1%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
 
 ### Patches ###
-Patch0001: 0001-db-Avoid-dereference-of-null-pointer.patch
-Patch0002: 0002-tree-Avoid-use-of-memory-after-it-s-freed.patch
-Patch0003: 0003-tree-Cleanup-_create_from_location_async_helper.patch
-Patch0004: 0004-tools-install-script-Add-config-file-f-option.patch
-Patch0005: 0005-tools-install-script-Deprecate-config-user-admin-pas.patch
 
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.0.0
+BuildRequires: libsoup-devel
 BuildRequires: vala
 BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
@@ -28,7 +24,6 @@ BuildRequires: git
 Requires: hwdata
 Requires: osinfo-db
 Requires: osinfo-db-tools
-Requires: gvfs
 
 %description
 libosinfo is a library that allows virtualization provisioning tools to
@@ -103,6 +98,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Fri Jul 26 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.6.0-1
+- Update to 1.6.0 release
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
