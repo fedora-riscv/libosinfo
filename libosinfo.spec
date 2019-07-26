@@ -23,10 +23,10 @@ BuildRequires: vala
 BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
 BuildRequires: gobject-introspection-devel
-BuildRequires: osinfo-db >= 20181011-1
+BuildRequires: osinfo-db
 BuildRequires: git
 Requires: hwdata
-Requires: osinfo-db >= 20181011-1
+Requires: osinfo-db
 Requires: osinfo-db-tools
 Requires: gvfs
 
