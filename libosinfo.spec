@@ -3,12 +3,13 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.6.0
-Release: 1%{?dist}%{?extra_release}
+Release: 2%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
 
 ### Patches ###
+Patch0001: 0001-db-Take-the-media-s-volume-size-into-account-when-so.patch
 
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
@@ -98,6 +99,9 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Fri Nov 08 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.6.0-2
+- Improve ISO detection mechanism
+
 * Fri Jul 26 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.6.0-1
 - Update to 1.6.0 release
 
