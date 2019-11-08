@@ -1,0 +1,51 @@
+From 71cf18b07b830f7966dbd6b6705c0f9cddb5c587 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fabiano=20Fid=C3=AAncio?= <fidencio@redhat.com>
+Date: Tue, 5 Nov 2019 15:56:28 +0100
+Subject: [PATCH] db: Take the media's volume size into account when sorting
+ the medias
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+If volume-size is not taken into account, when dealing with identical
+ISOs, we may end up wrongly matching an entry that has its volume-size
+with one which doesn't have the value, simply because the one which does
+not have the value may be declared first the in XML entry.
+
+Signed-off-by: Fabiano Fidêncio <fidencio@redhat.com>
+Reviewed-by; Daniel P. Berrangé <berrange@redhat.com>
+---
+ osinfo/osinfo_db.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/osinfo/osinfo_db.c b/osinfo/osinfo_db.c
+index f59c804..3c3574b 100644
+--- a/osinfo/osinfo_db.c
++++ b/osinfo/osinfo_db.c
+@@ -530,11 +530,21 @@ static gint media_volume_compare(gconstpointer a, gconstpointer b)
+         /* Order doesn't matter then */
+         return 0;
+ 
+-    if (strstr(volume_a, volume_b) != NULL)
++    if (strstr(volume_a, volume_b) != NULL) {
++        gint64 volume_size_a = osinfo_media_get_volume_size(media_a);
++        gint64 volume_size_b = osinfo_media_get_volume_size(media_b);
++
++        if (volume_size_a != -1 && volume_size_b == -1)
++            return -1;
++
++        if (volume_size_b != -1 && volume_size_a == -1)
++            return 1;
++
+         return -1;
+-    else
++    } else {
+         /* Sub-string comes later */
+         return 1;
++    }
+ }
+ 
+ static OsinfoOs *
+-- 
+2.23.0
+
