@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.4.0
-Release: 4%{?dist}%{?extra_release}
+Release: 5%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
 URL: https://libosinfo.org/
@@ -18,6 +18,7 @@ Patch0006: 0006-test-os-Remove-test_resources_uniqueness.patch
 Patch0007: 0007-test-os-Remove-test_devices_duplication.patch
 Patch0008: 0008-tools-install-script-Add-config-file-f-option.patch
 Patch0009: 0009-tools-install-script-Deprecate-config-user-admin-pas.patch
+Patch0010: 0010-db-Take-the-media-s-volume-size-into-account-when-so.patch
 
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
@@ -108,6 +109,10 @@ fi
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+
+* Fri Nov 08 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.4.0-5
+- Improve ISO detection mechanism
+
 * Wed Jul 10 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.4.0-4
 - rhbz#1727767 - CVE-2019-13313 libosinfo: osinfo-install-script
                  option leaks password via command line argument
