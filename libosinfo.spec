@@ -2,15 +2,17 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 1.6.0
-Release: 2%{?dist}%{?extra_release}
+Version: 1.7.0
+Release: 1%{?dist}
 License: LGPLv2+
-Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.gz
+Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
 
 ### Patches ###
-Patch0001: 0001-db-Take-the-media-s-volume-size-into-account-when-so.patch
 
+BuildRequires: meson
+BuildRequires: gcc
+BuildRequires: gtk-doc
 BuildRequires: gettext-devel
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
@@ -51,25 +53,19 @@ Libraries, includes, etc. to compile with the libosinfo library
 %autosetup -S git
 
 %build
-%configure --enable-introspection=yes --enable-vala=yes
-%__make %{?_smp_mflags} V=1
-
-chmod a-x examples/*.js examples/*.py
+%meson \
+    -Denable-gtk-doc=true \
+    -Denable-tests=true \
+    -Denable-introspection=enabled \
+    -Denable-vala=enabled
 
 %install
-rm -fr %{buildroot}
-%__make install DESTDIR=%{buildroot}
-rm -f %{buildroot}%{_libdir}/*.a
-rm -f %{buildroot}%{_libdir}/*.la
+%meson_install
 
 %find_lang %{name}
 
 %check
-if ! make check
-then
-  cat tests/test-suite.log || true
-  exit 1
-fi
+%meson_test
 
 %ldconfig_scriptlets
 
@@ -85,8 +81,6 @@ fi
 %{_libdir}/girepository-1.0/Libosinfo-1.0.typelib
 
 %files devel
-%doc examples/demo.js
-%doc examples/demo.py
 %{_libdir}/%{name}-1.0.so
 %dir %{_includedir}/%{name}-1.0/
 %dir %{_includedir}/%{name}-1.0/osinfo/
@@ -94,11 +88,16 @@ fi
 %{_libdir}/pkgconfig/%{name}-1.0.pc
 %{_datadir}/gir-1.0/Libosinfo-1.0.gir
 %{_datadir}/gtk-doc/html/Libosinfo
+
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
+%{_datadir}/vala/vapi/libosinfo-1.0.deps
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Fri Nov 29 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.7.0-1
+- Update to 1.7.0 release
+
 * Fri Nov 08 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.6.0-2
 - Improve ISO detection mechanism
 
