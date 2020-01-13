@@ -3,12 +3,13 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
 
 ### Patches ###
+Patch0001: 0001-Partially-revert-list-Update-GObject-boilerplate.patch
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -95,6 +96,9 @@ Libraries, includes, etc. to compile with the libosinfo library
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Mon Jan 13 2020 Fabiano Fidêncio <fidencio@redhat.com> - 1.7.1-2
+- Fix OsinfoList ABI breakage
+
 * Wed Dec 04 2019 Fabiano Fidêncio <fidencio@redhat.com> - 1.7.1-1
 - Update to 1.7.1 release
 
