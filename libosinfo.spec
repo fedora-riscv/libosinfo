@@ -2,14 +2,13 @@
 
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
-Version: 1.7.1
+Version: 1.8.0
 Release: 3%{?dist}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
 
 ### Patches ###
-Patch0001: 0001-Partially-revert-list-Update-GObject-boilerplate.patch
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -96,6 +95,9 @@ Libraries, includes, etc. to compile with the libosinfo library
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Sat May 30 2020 Fabiano Fidêncio <fidencio@redhat.com> - 1.8.0-1
+- Update to 1.8.0 release
+
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
