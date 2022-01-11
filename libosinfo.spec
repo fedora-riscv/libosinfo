@@ -3,12 +3,13 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.9.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
 
 ### Patches ###
+Patch0001: 0001-build-don-t-set-glib-version-constraints-for-g-ir-sc.patch
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -96,6 +97,9 @@ Libraries, includes, etc. to compile with the libosinfo library
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Tue Jan 11 2022 Cole Robinson <crobinso@redhat.com> - 1.9.0-3
+- Fix build with glib 2.70
+
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
