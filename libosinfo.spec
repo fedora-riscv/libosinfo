@@ -106,7 +106,7 @@ Libraries, includes, etc. to compile with the libosinfo library
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Wed Feb 02 2021 Fabiano Fidêncio <fidencio@redhat.com> - 1.9.0-1
+* Wed Feb 03 2021 Fabiano Fidêncio <fidencio@redhat.com> - 1.9.0-1
 - Update to 1.9.0 release
 
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
