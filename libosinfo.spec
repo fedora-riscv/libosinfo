@@ -3,7 +3,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2+
 Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
@@ -17,7 +17,7 @@ BuildRequires: gettext-devel
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.0.0
-BuildRequires: libsoup-devel
+BuildRequires: libsoup3-devel
 BuildRequires: vala
 BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
@@ -96,6 +96,9 @@ Libraries, includes, etc. to compile with the libosinfo library
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
 %changelog
+* Tue Jul 19 2022 Daniel P. Berrangé <berrange@redhat.com> - 1.10.0-2
+- Switch from libsoup2 to libsoup3 (rhbz #2108589)
+
 * Mon Feb 14 2022 Victor Toso <victortoso@redhat.com> - 1.10.0-1
 - Update to 1.10.0 release
 
