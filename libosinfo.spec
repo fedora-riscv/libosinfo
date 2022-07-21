@@ -17,7 +17,11 @@ BuildRequires: gettext-devel
 BuildRequires: glib2-devel
 BuildRequires: libxml2-devel >= 2.6.0
 BuildRequires: libxslt-devel >= 1.0.0
+%if 0%{?fedora} >= 36
 BuildRequires: libsoup3-devel
+%else
+BuildRequires: libsoup-devel
+%endif
 BuildRequires: vala
 BuildRequires: /usr/bin/pod2man
 BuildRequires: hwdata
