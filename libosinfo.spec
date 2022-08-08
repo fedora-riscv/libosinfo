@@ -1,15 +1,17 @@
 # -*- rpm-spec -*-
 
+%define with_mingw 0
+%if 0%{?fedora}
+    %define with_mingw 0%{!?_without_mingw:1}
+%endif
+
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.10.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPLv2+
-Source: https://releases.pagure.io/%{name}/%{name}-%{version}.tar.xz
+Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
-
-### Patches ###
-
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: gtk-doc
@@ -32,6 +34,24 @@ Requires: hwdata
 Requires: osinfo-db
 Requires: osinfo-db-tools
 
+%if %{with_mingw}
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-gcc
+BuildRequires: mingw32-binutils
+BuildRequires: mingw32-glib2
+BuildRequires: mingw32-libxml2
+BuildRequires: mingw32-libxslt
+BuildRequires: mingw32-libsoup
+
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-gcc
+BuildRequires: mingw64-binutils
+BuildRequires: mingw64-glib2
+BuildRequires: mingw64-libxml2
+BuildRequires: mingw64-libxslt
+BuildRequires: mingw64-libsoup
+%endif
+
 %description
 libosinfo is a library that allows virtualization provisioning tools to
 determine the optimal device settings for a hypervisor/operating system
@@ -53,6 +73,36 @@ combination.
 
 Libraries, includes, etc. to compile with the libosinfo library
 
+%if %{with_mingw}
+%package -n mingw32-libosinfo
+Summary: %{summary}
+BuildArch: noarch
+
+Requires: pkgconfig
+Requires: mingw32-osinfo-db
+Requires: mingw32-osinfo-db-tools
+
+%description -n mingw32-libosinfo
+libosinfo is a library that allows virtualization provisioning tools to
+determine the optimal device settings for a hypervisor/operating system
+combination.
+
+%package -n mingw64-libosinfo
+Summary: %{summary}
+BuildArch: noarch
+
+Requires: pkgconfig
+Requires: mingw64-osinfo-db
+Requires: mingw64-osinfo-db-tools
+
+%description -n mingw64-libosinfo
+libosinfo is a library that allows virtualization provisioning tools to
+determine the optimal device settings for a hypervisor/operating system
+combination.
+
+%{?mingw_debug_package}
+%endif
+
 %prep
 %autosetup -S git
 
@@ -64,10 +114,41 @@ Libraries, includes, etc. to compile with the libosinfo library
     -Denable-vala=enabled
 %meson_build
 
+%if %{with_mingw}
+%mingw_meson \
+    -Denable-gtk-doc=false \
+    -Denable-tests=false \
+    -Denable-introspection=disabled \
+    -Denable-vala=disabled
+%mingw_ninja
+%endif
+
 %install
 %meson_install
 
 %find_lang %{name}
+
+%if %{with_mingw}
+%mingw_ninja_install
+
+# Remove static libraries but DON'T remove *.dll.a files.
+rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libosinfo-1.0.a
+rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libosinfo-1.0.a
+
+# Libtool files don't need to be bundled
+find $RPM_BUILD_ROOT -name "*.la" -delete
+
+# Manpages don't need to be bundled
+rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/man
+rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/man
+
+rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/gtk-doc
+rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
+
+%mingw_debug_install_post
+
+%mingw_find_lang libosinfo
+%endif
 
 %check
 %meson_test
@@ -99,7 +180,42 @@ Libraries, includes, etc. to compile with the libosinfo library
 %{_datadir}/vala/vapi/libosinfo-1.0.deps
 %{_datadir}/vala/vapi/libosinfo-1.0.vapi
 
+%if %{with_mingw}
+%files -n mingw32-libosinfo -f mingw32-libosinfo.lang
+%doc AUTHORS ChangeLog COPYING.LIB NEWS README
+%{mingw32_bindir}/osinfo-detect.exe
+%{mingw32_bindir}/osinfo-install-script.exe
+%{mingw32_bindir}/osinfo-query.exe
+%{mingw32_bindir}/libosinfo-1.0-0.dll
+%{mingw32_libdir}/libosinfo-1.0.dll.a
+%{mingw32_libdir}/pkgconfig/libosinfo-1.0.pc
+%dir %{mingw32_includedir}/libosinfo-1.0/
+%dir %{mingw32_includedir}/libosinfo-1.0/osinfo
+%{mingw32_includedir}/libosinfo-1.0/osinfo/*.h
+%dir %{mingw32_datadir}/libosinfo
+%{mingw32_datadir}/libosinfo/usb.ids
+%{mingw32_datadir}/libosinfo/pci.ids
+
+%files -n mingw64-libosinfo -f mingw64-libosinfo.lang
+%doc AUTHORS ChangeLog COPYING.LIB NEWS README
+%{mingw64_bindir}/osinfo-detect.exe
+%{mingw64_bindir}/osinfo-install-script.exe
+%{mingw64_bindir}/osinfo-query.exe
+%{mingw64_bindir}/libosinfo-1.0-0.dll
+%{mingw64_libdir}/libosinfo-1.0.dll.a
+%{mingw64_libdir}/pkgconfig/libosinfo-1.0.pc
+%dir %{mingw64_includedir}/libosinfo-1.0/
+%dir %{mingw64_includedir}/libosinfo-1.0/osinfo
+%{mingw64_includedir}/libosinfo-1.0/osinfo/*.h
+%dir %{mingw64_datadir}/libosinfo
+%{mingw64_datadir}/libosinfo/usb.ids
+%{mingw64_datadir}/libosinfo/pci.ids
+%endif
+
 %changelog
+* Mon Aug  8 2022 Daniel P. Berrangé <berrange@redhat.com> - 1.10.0-4
+- Pull in mingw sub-packages
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
