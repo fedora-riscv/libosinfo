@@ -8,7 +8,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.10.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPLv2+
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
@@ -213,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %endif
 
 %changelog
+* Tue Feb 21 2023 Daniel P. Berrangé <berrange@redhat.com> - 1.10.0-5
+- Rebuild to drop mingw translations from native package (rhbz #2148783)
+
 * Mon Aug  8 2022 Daniel P. Berrangé <berrange@redhat.com> - 1.10.0-4
 - Pull in mingw sub-packages
 
