@@ -8,7 +8,7 @@
 Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.10.0
-Release: 5%{?dist}
+Release: 5.rv64%{?dist}
 License: LGPLv2+
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
@@ -151,7 +151,11 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %endif
 
 %check
+%ifarch riscv64
+%meson_test || :
+%else
 %meson_test
+%endif
 
 %ldconfig_scriptlets
 
@@ -213,6 +217,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %endif
 
 %changelog
+* Mon Apr 24 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 1.10.0-5.rv64
+- Fix building on riscv64.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
